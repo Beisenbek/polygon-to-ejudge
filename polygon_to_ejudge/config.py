@@ -1,8 +1,8 @@
 JUDGES_DIR = '/home/judges/'  # Path to judges folder
 
-GVALUER_LOCATION = '/home/judges/001501/problems/gvaluer'  # Path to compiled gvaluer
+GVALUER_LOCATION = '/home/judges/'  # Path to compiled gvaluer
 
-EJUDGE_URL = 'https://ejudge.algocode.ru/'
+EJUDGE_URL = 'http://ejudge.kz/'
 
 CREATE_STATEMENTS = True  # Change it to False if you do not want to create statements for problems
 
