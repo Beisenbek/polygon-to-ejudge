@@ -68,7 +68,7 @@ def import_problem(
         ejudge_problem_id=None,
         no_offline=False
 ) -> None:
-    cli_config.setup_login_by_url('')
+    cli_config.setup_login_by_url('main')
     session = problem.ProblemSession("main", polygon_id, None)
     contest_dir = get_ejudge_contest_dir(ejudge_contest_id)
     download_dir = os.path.join(contest_dir, 'download')
@@ -113,7 +113,17 @@ def import_problem(
         os.mkdir(problems_dir)
 
     os.chdir(tmp_dir)
-    session.download_last_package()
+
+    #session.download_last_package()
+    packages = session.send_api_request('problem.packages', {}) 
+    latest_package = max(packages, key-lambda x: x['revision']) 
+    packageId = latest_package ['id']
+    r = session.send_api_request('problem.package', {'packageId': packageId, 'type': 'linux'}, False)
+    f = open('%s.zip' % short_name, 'wb')
+    f.write(r)
+    f.close()
+    print ("finished downloading: ", short_name)
+     
     problems = os.listdir(problems_dir)
     problem_zip_name = os.listdir(tmp_dir)[0]
     problem_name = problem_zip_name[:problem_zip_name.rfind(".zip")]
@@ -354,8 +364,8 @@ def import_contest(
         polygon_id: int,
         no_offline=False
 ) -> None:
-    cli_config.setup_login_by_url('')
-    session = problem.ProblemSession(cli_config.polygon_url, None, None)
+    cli_config.setup_login_by_url('main')
+    session = problem.ProblemSession('main', None, None)
     problems = session.send_api_request('contest.problems', {'contestId': polygon_id}, problem_data=False)
     problem_keys = list(problems.keys())
     problem_keys.sort()
