@@ -116,7 +116,7 @@ def import_problem(
 
     #session.download_last_package()
     packages = session.send_api_request('problem.packages', {}) 
-    latest_package = max(packages, key-lambda x: x['revision']) 
+    latest_package = max(packages, key=lambda x: x['revision']) 
     packageId = latest_package['id']
     r = session.send_api_request('problem.package', {'packageId': packageId, 'type': 'linux'}, False)
     f = open('%s.zip' % short_name, 'wb')
