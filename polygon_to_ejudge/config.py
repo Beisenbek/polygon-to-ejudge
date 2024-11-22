@@ -1,6 +1,6 @@
 JUDGES_DIR = '/home/judges/'  # Path to judges folder
 
-GVALUER_LOCATION = '/home/judges/'  # Path to compiled gvaluer
+GVALUER_LOCATION = '/home/judges/gvaluer'  # Path to compiled gvaluer
 
 EJUDGE_URL = 'http://ejudge.kz/'
 
